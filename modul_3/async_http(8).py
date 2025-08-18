@@ -1,31 +1,62 @@
-#Напишите асинхронную функцию fetch_urls, которая принимает список URL-адресов и
-# возвращает словарь, где ключами являются URL, а значениями — статус-коды ответов.
-# Используйте библиотеку aiohttp для выполнения HTTP-запросов.
-
-# Требования:
-#
-# Ограничьте количество одновременных запросов до 5 (используйте
-# примитивы синхронизации из asyncio библиотеки)
-# Обработайте возможные исключения (например, таймауты, недоступные ресурсы)
-# и присвойте соответствующие статус-коды (например, 0 для ошибок соединения).
-# Сохраните все результаты в файл
-# Пример использования:
-
 import asyncio
+import aiohttp
+import json
+from typing import Dict, List
+from tqdm.asyncio import tqdm_asyncio
 
-urls = [
-    "https://example.com",
-    "https://httpbin.org/status/404",
-    "https://nonexistent.url"
-]
+input_file = "urls.txt"
+output_file = "results.jsonl"
+
+async def fetch_url(
+        url: str,
+        session: aiohttp.ClientSession,
+        semaphore: asyncio.Semaphore
+) -> Dict[str, int]:
+    try:
+        async with semaphore:
+            async with session.get(url, timeout=1) as response:
+                return {"url": url, "status_code": response.status}
+    except (aiohttp.ClientError, asyncio.TimeoutError):
+        return {"url": url, "status_code": 0}
+    except Exception:
+        return {"url": url, "status_code": 0}
 
 
-async def fetch_urls(urls: list[str], file_path: str):
-    raise NotImplemented
+async def fetch_urls(urls: List[str], file_path: str) -> List[Dict[str, int]]:
+    semaphore = asyncio.Semaphore(5)
+    async with aiohttp.ClientSession() as session:
+        tasks = [fetch_url(url, session, semaphore) for url in urls]
+        results = await tqdm_asyncio.gather(*tasks, desc="Processing URLs")
+
+    with open(file_path, "w") as f:
+        for result in results:
+            f.write(json.dumps(result) + "\n")
+    return results
 
 
 if __name__ == '__main__':
-    asyncio.run(fetch_urls(urls, './results.jsonl'))
+    urls = [
+        "https://example.com",
+        "https://httpbin.org/status/404",
+        "https://nonexistent.url"
+    ]
+    asyncio.run(fetch_urls(urls, output_file))
+
+# import asyncio
+#
+# urls = [
+#     "https://example.com",
+#     "https://httpbin.org/status/404",
+#     "https://nonexistent.url"
+# ]
+#
+#
+# async def fetch_urls(urls: list[str], file_path: str):
+#     raise NotImplemented
+#
+#
+# if __name__ == '__main__':
+#     asyncio.run(fetch_urls(urls, './results.jsonl'))
 
 
 # Пример файла results.json:

@@ -1,0 +1,9 @@
+https://jsonplaceholder.typicode.com/todos/1
+https://jsonplaceholder.typicode.com/posts/1
+https://httpbin.org/get
+https://api.github.com
+https://nonexistent-domain-12345.com
+https://httpbin.org/status/404
+https://httpbin.org/status/500
+http://example.com
+https://google.com
