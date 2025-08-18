@@ -4,8 +4,8 @@ import json
 from typing import Dict, List
 from tqdm.asyncio import tqdm_asyncio
 
-input_file = "urls.txt"
-output_file = "results.jsonl"
+input_file = "../data/urls.txt"
+output_file = "../data/results.jsonl"
 
 async def fetch_url(
         url: str,

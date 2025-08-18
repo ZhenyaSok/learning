@@ -12,7 +12,7 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
         logging.StreamHandler(sys.stdout),
-        logging.FileHandler('fetch_urls.log', encoding='utf-8')
+        logging.FileHandler('../data/fetch_urls.log', encoding='utf-8')
     ],
     encoding='utf-8'
 )
@@ -51,8 +51,8 @@ async def fetch_urls():
     """
     Основная функция для загрузки URL из файла и сохранения результатов
     """
-    input_file = "urls.txt"
-    output_file = "results.jsonl"
+    input_file = "../data/urls.txt"
+    output_file = "../data/results.jsonl"
 
     # Проверяем существование входного файла
     try:

@@ -27,7 +27,7 @@ async def generate_test_urls():
     ]
 
     # Записываем URL в файл
-    with open("urls.txt", "w") as f:
+    with open("data/urls.txt", "w") as f:
         f.write("\n".join(test_urls))
 
     logger.info(f"Создан тестовый файл urls.txt с {len(test_urls)} URL")
@@ -38,7 +38,7 @@ async def main():
 
     # Проверяем, что файл создан
     try:
-        with open("urls.txt", "r") as f:
+        with open("data/urls.txt", "r") as f:
             urls = f.readlines()
             logger.info("Первые 5 URL из файла:")
             for url in urls[:5]:
