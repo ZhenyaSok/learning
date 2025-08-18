@@ -10,16 +10,17 @@ class SingletonMeta(type):
             cls._instances[cls] = super().__call__(*args, **kwargs)
         return cls._instances[cls]
 
+
 class SingletonClass(metaclass=SingletonMeta):
     def __init__(self, value):
         self.value = value
-
 
 # Пример использования
 s1 = SingletonClass(10)
 s2 = SingletonClass(20)
 print(s1 is s2)  # True, потому что это один и тот же объект
 print(s1.value)  # 10, потому что второй вызов конструктора игнорируется
+
 
 # с помощью метода __new__ класса
 class SingletonClsNew(object):

@@ -56,9 +56,6 @@ def lru_cache(*args, **kwargs):
         return decorator
 
 
-# raise NotImplementedError
-
-
 @lru_cache
 def sum_m(a: int, b: int) -> int:
     return a + b
