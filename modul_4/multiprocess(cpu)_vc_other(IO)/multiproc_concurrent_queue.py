@@ -4,6 +4,7 @@ from typing import List
 
 from modul_4.function import process_number
 
+
 # Вариант: Однопоточная обработка
 def process_single_thread(data: List[int]) -> List[bool]:
     return [process_number(num) for num in data]
