@@ -1,6 +1,8 @@
 import unittest.mock
 from collections import OrderedDict
-from functools import cache
+from functools import wraps
+
+
 # Реализуйте lru_cache декоратор.
 #
 # Требования:
@@ -21,12 +23,13 @@ def lru_cache(*args, **kwargs):
         return lru_cache(maxsize=None)(args[0])
     else:
         # Вариант 2: декоратор вызван с параметрами
-        maxsize = kwargs.get('maxsize', None)
+        maxsize = kwargs.get("maxsize", None)
 
         def decorator(func):
             # Кеш в виде OrderedDict для отслеживания порядка использования
             cache = OrderedDict()
 
+            @wraps(func)  # Добавляем wraps для сохранения метаданных
             def wrapper(*args, **kwargs):
                 # Создаем ключ на основе позиционных и именованных аргументов
                 key = (args, frozenset(kwargs.items()))
@@ -71,7 +74,7 @@ def multiply_m(a: int, b: int) -> int:
     return a * b
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     assert sum_m(1, 2) == 3
     assert sum_m(3, 4) == 7
 

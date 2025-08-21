@@ -12,6 +12,7 @@ my_nums = [1, 2, 3, 45, 356, 569, 600, 705, 923]
 
 my_number = 45
 
+
 def search(nums, number):
     left, right = 0, len(nums) - 1
     while left <= right:
@@ -25,7 +26,6 @@ def search(nums, number):
             right = mid - 1
     print(False)
     return False
-
 
 
 search(my_nums, my_number)

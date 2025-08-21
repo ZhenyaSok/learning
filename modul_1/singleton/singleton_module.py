@@ -1,5 +1,6 @@
 # через механизм импортов
 
+
 class _SingletonClass:
     def __init__(self, value):
         self.value = value

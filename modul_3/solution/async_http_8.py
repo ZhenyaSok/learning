@@ -7,10 +7,9 @@ from tqdm.asyncio import tqdm_asyncio
 input_file = "../data/urls.txt"
 output_file = "../data/results.jsonl"
 
+
 async def fetch_url(
-        url: str,
-        session: aiohttp.ClientSession,
-        semaphore: asyncio.Semaphore
+    url: str, session: aiohttp.ClientSession, semaphore: asyncio.Semaphore
 ) -> Dict[str, int]:
     try:
         async with semaphore:
@@ -34,11 +33,11 @@ async def fetch_urls(urls: List[str], file_path: str) -> List[Dict[str, int]]:
     return results
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     urls = [
         "https://example.com",
         "https://httpbin.org/status/404",
-        "https://nonexistent.url"
+        "https://nonexistent.url",
     ]
     asyncio.run(fetch_urls(urls, output_file))
 

@@ -8,12 +8,16 @@ def fetch_currency():
     currency = entry.get().strip().upper()
 
     if len(currency) != 3:
-        messagebox.showerror("Ошибка", "Введите 3-буквенный код валюты (например: USD, EUR)")
+        messagebox.showerror(
+            "Ошибка", "Введите 3-буквенный код валюты (например: USD, EUR)"
+        )
         return
 
     try:
-        with urllib.request.urlopen(f"https://api.exchangerate-api.com/v4/latest/{currency}") as response:
-            data = json.loads(response.read().decode('utf-8'))
+        with urllib.request.urlopen(
+            f"https://api.exchangerate-api.com/v4/latest/{currency}"
+        ) as response:
+            data = json.loads(response.read().decode("utf-8"))
             data["provider"] = "https://www.exchangerate-api.com"
 
             # Отображаем JSON в текстовом поле с форматированием

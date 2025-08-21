@@ -3,8 +3,7 @@ import logging
 
 # Настройка логирования
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -17,13 +16,12 @@ async def generate_test_urls():
         "https://jsonplaceholder.typicode.com/posts/1",
         "https://httpbin.org/get",
         "https://api.github.com",
-
         # Нерабочие URL (для тестирования ошибок)
         "https://nonexistent-domain-12345.com",
         "https://httpbin.org/status/404",
         "https://httpbin.org/status/500",
         "http://example.com",  # Не возвращает JSON
-        "https://google.com"  # Не возвращает JSON
+        "https://google.com",  # Не возвращает JSON
     ]
 
     # Записываем URL в файл

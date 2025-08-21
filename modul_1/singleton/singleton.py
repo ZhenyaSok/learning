@@ -15,6 +15,7 @@ class SingletonClass(metaclass=SingletonMeta):
     def __init__(self, value):
         self.value = value
 
+
 # Пример использования
 s1 = SingletonClass(10)
 s2 = SingletonClass(20)
@@ -44,6 +45,7 @@ print(s2.value)  # 20, потому что __init__ вызывается каж�
 # Добавляю еще один метод (для себя)
 # Метод 4: Декоратор
 
+
 def singleton(class_):
     instances = {}
 
@@ -53,7 +55,6 @@ def singleton(class_):
         return instances[class_]
 
     return getinstance
-
 
 
 @singleton
