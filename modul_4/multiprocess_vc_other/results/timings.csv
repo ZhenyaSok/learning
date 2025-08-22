@@ -1,0 +1,5 @@
+Метод,Время (сек),Ускорение
+Single-thread,0.31,1.0x
+ThreadPool,12.82,0.0x
+Process+Queue,22.58,0.0x
+ProcessPool,1.48,0.2x

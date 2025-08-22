@@ -1,7 +1,7 @@
-import tkinter as tk
-from tkinter import messagebox
-import urllib.request
 import json
+import tkinter as tk
+import urllib.request
+from tkinter import messagebox
 
 
 def fetch_currency():

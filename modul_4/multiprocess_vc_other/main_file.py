@@ -1,17 +1,16 @@
 import csv
 import os
 import time
-import matplotlib.pyplot as plt
 
+import matplotlib.pyplot as plt
 from multiproc_concurrent_queue import (
+    generate_data,
+    process_single_thread,
+    process_with_pool,
     process_with_queue,
     process_with_threads,
-    process_with_pool,
-    process_single_thread,
-    generate_data,
     save_results_to_json,
 )
-
 
 DATA_SIZE = 1000000
 

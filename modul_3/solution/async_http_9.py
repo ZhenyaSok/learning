@@ -1,10 +1,10 @@
-import sys
-import aiohttp
 import asyncio
 import json
 import logging
-from aiohttp import ClientSession, ClientError
+import sys
 
+import aiohttp
+from aiohttp import ClientError, ClientSession
 
 # Настройка логирования
 logging.basicConfig(

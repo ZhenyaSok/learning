@@ -1,7 +1,8 @@
 import asyncio
-import aiohttp
 import json
 from typing import Dict, List
+
+import aiohttp
 from tqdm.asyncio import tqdm_asyncio
 
 input_file = "../data/urls.txt"

@@ -2,7 +2,6 @@ import unittest.mock
 from collections import OrderedDict
 from functools import wraps
 
-
 # Реализуйте lru_cache декоратор.
 #
 # Требования:
@@ -14,45 +13,39 @@ from functools import wraps
 # Декоратор должно быть возможно использовать двумя способами: с
 # указанием максимального кол-ва элементов и без.
 
+
 def lru_cache(*args, **kwargs):
-    # Обработка двух вариантов использования:
-    # 1. @lru_cache без параметров
-    # 2. @lru_cache(maxsize=...) с параметрами
     if len(args) == 1 and callable(args[0]):
-        # Вариант 1: декоратор вызван без параметров
         return lru_cache(maxsize=None)(args[0])
     else:
-        # Вариант 2: декоратор вызван с параметрами
         maxsize = kwargs.get("maxsize", None)
 
         def decorator(func):
-            # Кеш в виде OrderedDict для отслеживания порядка использования
             cache = OrderedDict()
 
-            @wraps(func)  # Добавляем wraps для сохранения метаданных
+            @wraps(func)
             def wrapper(*args, **kwargs):
-                # Создаем ключ на основе позиционных и именованных аргументов
                 key = (args, frozenset(kwargs.items()))
 
-                # Проверяем, есть ли результат в кеше
                 if key in cache:
-                    # Обновляем порядок использования (перемещаем в конец)
                     cache.move_to_end(key)
                     return cache[key]
 
-                # Вызываем оригинальную функцию, если результат не в кеше
                 result = func(*args, **kwargs)
-
-                # Сохраняем результат в кеш
                 cache[key] = result
-                # Обновляем порядок использования
                 cache.move_to_end(key)
 
-                # Если достигнут максимальный размер кеша, удаляем самый старый элемент
                 if maxsize is not None and len(cache) > maxsize:
                     cache.popitem(last=False)
 
                 return result
+
+            # Добавляем метод для ручной очистки
+            def cache_clear():
+                cache.clear()
+
+            wrapper.cache_clear = cache_clear
+            wrapper.cache_info = lambda: f"Size: {len(cache)}, Maxsize: {maxsize}"
 
             return wrapper
 
