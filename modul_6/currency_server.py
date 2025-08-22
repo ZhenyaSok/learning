@@ -1,15 +1,14 @@
-
 # запустив программу в файле, можем перейти по http://127.0.0.1:8000/USD
 # 3 символа после слеша означают сокращение валюты
 
 # Можно запустить tkinter_currency увидим минимальный интерфейс для взаимодействия
 import http.server
-import socketserver
-import urllib.request
-import urllib.error
 import json
-from urllib.parse import urlparse
+import socketserver
 import sys
+import urllib.error
+import urllib.request
+from urllib.parse import urlparse
 
 PORT = 8000  # можно поменять на любой свободный порт
 
@@ -33,7 +32,9 @@ class CurrencyHandler(http.server.BaseHTTPRequestHandler):
             self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
             self.wfile.write(
-                json.dumps({"error": "Invalid currency code"}, ensure_ascii=False).encode("utf-8")
+                json.dumps(
+                    {"error": "Invalid currency code"}, ensure_ascii=False
+                ).encode("utf-8")
             )
             return
 
